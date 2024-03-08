@@ -119,7 +119,7 @@ export default function Canvas() {
     save();
   }, [shapes]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     const fetchDrawing = async () => {
       try {
         const shapesData = await getDrawing();
@@ -130,7 +130,7 @@ export default function Canvas() {
       }
     };
     fetchDrawing();
-  },[]);
+  },[]); */
 
   return (
     <div>
