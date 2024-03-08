@@ -1,5 +1,5 @@
 import { useRef, useEffect, Fragment } from "react";
-import { Rect, Circle, Line, Transformer } from "react-konva";
+import { Rect, Circle, Line, Transformer, Text } from "react-konva";
 
 export default function TransformShape({
   shapeProps,
@@ -38,6 +38,12 @@ export default function TransformShape({
         x: node.x(),
         y: node.y(),
         points: updatedPoints,
+      });
+    } else if (shapeProps.type === "text") {
+      onChange({
+        ...shapeProps,
+        x: node.x(),
+        y: node.y(),
       });
     } else {
       onChange({
@@ -117,6 +123,17 @@ export default function TransformShape({
 
       {shapeProps.type === "line" && (
         <Line
+          onClick={onSelect}
+          onTap={onSelect}
+          ref={shapeRef}
+          {...shapeProps}
+          draggable
+          onDragEnd={handleDragEnd}
+        />
+      )}
+
+      {shapeProps.type === "text" && (
+        <Text
           onClick={onSelect}
           onTap={onSelect}
           ref={shapeRef}
