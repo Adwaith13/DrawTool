@@ -33,26 +33,41 @@ export default function TransformShape({
         node.points()[3] + node.y() + node.height() * scaleY,
       ];
 
-      onChange({
+      const updatedShapeProps = {
         ...shapeProps,
         x: node.x(),
         y: node.y(),
         points: updatedPoints,
-      });
+      };
+
+      // Log the drawing data
+      console.log("Updated Drawing Data:", updatedShapeProps);
+
+      onChange(updatedShapeProps);
     } else if (shapeProps.type === "text") {
-      onChange({
+      const updatedShapeProps = {
         ...shapeProps,
         x: node.x(),
         y: node.y(),
-      });
+      };
+
+      // Log the drawing data
+      console.log("Updated Drawing Data:", updatedShapeProps);
+
+      onChange(updatedShapeProps);
     } else {
-      onChange({
+      const updatedShapeProps = {
         ...shapeProps,
         x: node.x(),
         y: node.y(),
         width: Math.max(5, node.width() * scaleX),
         height: Math.max(5, node.height() * scaleY),
-      });
+      };
+
+      // Log the drawing data
+      console.log("Updated Drawing Data:", updatedShapeProps);
+
+      onChange(updatedShapeProps);
     }
   };
 

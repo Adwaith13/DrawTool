@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import ToolBar from "./ToolBar";
 import { Stage, Layer, Text } from "react-konva";
 import TransformShape from "./TransformShapes";
+import { saveDrawing } from "../apis/saveDrawing";
+import { getDrawing } from "../apis/getDrawing";
 
 export default function Canvas() {
   const [shapes, setShapes] = useState([]);
@@ -9,6 +11,8 @@ export default function Canvas() {
   const [textCreationMode, setTextCreationMode] = useState(false);
   const [textPosition, setTextPosition] = useState({ x: 0, y: 0 });
   const [displayText, setDisplayText] = useState("");
+
+  let updatedShapes;
 
   const createShape = (shapeType) => {
     let newShape;
@@ -59,21 +63,19 @@ export default function Canvas() {
       default:
         newShape = { type: shapeType };
     }
-
-    setShapes([...shapes, newShape]);
+    updatedShapes = [...shapes, newShape];
+    setShapes(updatedShapes);
+    console.log("Drawing Data:", updatedShapes);
   };
 
   const handleStageClick = (e) => {
-    // Create text at the click position when in text creation mode
     if (textCreationMode) {
       createShape("text", textPosition);
-      // Reset textPosition to avoid creating multiple text shapes at the same position
       setTextPosition({ x: 0, y: 0 });
     }
   };
 
   const handleTextButtonClick = () => {
-    // Toggle text creation mode when the "Text" button is clicked
     setTextCreationMode(!textCreationMode);
   };
 
@@ -99,18 +101,44 @@ export default function Canvas() {
   }, [textCreationMode]);
 
   const checkDeselect = (e) => {
-    // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
       selectShape(null);
     }
   };
 
+  useEffect(() => {
+    const save = async () => {
+      try {
+        const payload = await saveDrawing(shapes);
+        console.log(payload);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    save();
+  }, [shapes]);
+
+  useEffect(() => {
+    const fetchDrawing = async () => {
+      try {
+        const shapesData = await getDrawing();
+        setShapes(shapesData.shapes);
+        console.log(shapesData)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDrawing();
+  },[]);
+
   return (
     <div>
       <ToolBar
         onCreateShape={createShape}
         onTextButtonClick={handleTextButtonClick}
+        onMouseDown={checkDeselect}
+        onTouchStart={checkDeselect}
       />
       <Stage
         id="canvas-stage"
@@ -130,6 +158,7 @@ export default function Canvas() {
                 const updatedShapes = shapes.slice();
                 updatedShapes[index] = newAttrs;
                 setShapes(updatedShapes);
+                console.log("Drawing Data:", updatedShapes);
               }}
             />
           ))}
