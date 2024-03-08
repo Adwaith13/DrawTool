@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
+const shapesRoute = require("./routes/shapes");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", authRoute);
+app.use("/", shapesRoute);
 
 app.listen(3000, () => {
   console.log("server running on port 3000");
