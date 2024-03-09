@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loginApi } from "../apis/login";
 import { useNavigate, Link } from "react-router-dom";
+import styles from "../styles/form.module.css";
 
 export default function Login() {
   const [userData, setUserData] = useState({
@@ -9,7 +10,7 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -24,10 +25,11 @@ export default function Login() {
     }
   };
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
+    <div className={styles.container}>
+      <h1 className={styles.head}>Login</h1>
+      <form onSubmit={handleLogin} className={styles.form}>
         <input
+          className={styles.input}
           type="text"
           required
           name="username"
@@ -39,6 +41,7 @@ export default function Login() {
         />
         <br />
         <input
+          className={styles.input}
           type="password"
           placeholder="Password"
           name="password"
@@ -49,9 +52,9 @@ export default function Login() {
           }
         />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit" className={styles.button}>Login</button>
       </form>
-      <p>
+      <p className={styles.text}>
         Not registered?<Link to="/register">Register Here</Link>
       </p>
     </div>

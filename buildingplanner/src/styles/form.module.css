@@ -1,0 +1,45 @@
+.container{
+    width: 100vw;
+}
+
+.head{
+    font-family: 'Open Sans',sans-serif;
+    text-align: center;
+    color: rgb(76, 64, 236);
+    margin-top: 8%;
+}
+
+.form{
+    margin-left: 35%;
+}
+
+.input{
+    width: 45%;
+    height: 10%;
+    padding: 10px 10px;
+    border-radius: 8px;
+    color: rgb(172, 44, 227);
+    font-size: 1rem;
+    margin-bottom: 2%;
+}
+
+.button{
+    margin-left: 13%;
+    width: 20%;
+    height: 8%;
+    padding: 5px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    background-color: brown;
+    color: white;
+    font-family: 'Roboto',sans-serif;
+    font-size: 1rem;
+}
+
+.text{
+    margin-left: 42%;
+    margin-top: 1%;
+    font-family: 'Roboto',sans-serif;
+    font-size: 1rem;
+}

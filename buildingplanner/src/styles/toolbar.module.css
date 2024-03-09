@@ -1,0 +1,61 @@
+.toolbar {
+  margin-left: 30%;
+  width: 35vw;
+  height: 5vh;
+  margin-top: 2%;
+  padding: 10px 10px;
+  border: 1px solid rgb(209, 204, 204);
+  border-radius: 10px;
+}
+
+.rectangle {
+  margin-left: 2.2%;
+  margin-right: 4%;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  width: 20%;
+  padding: 8px 8px;
+  border-radius: 8px;
+  border: none;
+  background-color: burlywood;
+  cursor: pointer;
+}
+
+.circle {
+  margin-right: 4%;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  width: 20%;
+  padding: 8px 8px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  background-color: rgb(216, 56, 91);
+  cursor: pointer;
+}
+
+.line {
+  margin-right: 4%;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  width: 20%;
+  padding: 8px 8px;
+  border-radius: 8px;
+  border: none;
+  color: rgb(28, 155, 234);
+  background-color: rgb(244, 208, 52);
+  cursor: pointer;
+}
+
+.text {
+  margin-right: 1%;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  width: 20%;
+  padding: 8px 8px;
+  border-radius: 8px;
+  border: none;
+  color: rgb(226, 240, 248);
+  background-color: rgb(27, 75, 234);
+  cursor: pointer;
+}

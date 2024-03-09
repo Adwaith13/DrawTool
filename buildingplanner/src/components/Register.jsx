@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { registerApi } from "../apis/register";
 import { useNavigate, Link } from "react-router-dom";
+import styles from "../styles/form.module.css";
 
 export default function Register() {
   const [userData, setUserData] = useState({
@@ -23,10 +24,11 @@ export default function Register() {
     }
   };
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleRegister}>
+    <div className={styles.container}>
+      <h1 className={styles.head}>Register</h1>
+      <form onSubmit={handleRegister} className={styles.form}>
         <input
+          className={styles.input}
           type="text"
           required
           name="username"
@@ -38,6 +40,7 @@ export default function Register() {
         />
         <br />
         <input
+          className={styles.input}
           type="password"
           placeholder="Password"
           name="password"
@@ -48,9 +51,11 @@ export default function Register() {
           }
         />
         <br />
-        <button type="submit">Register</button>
+        <button type="submit" className={styles.button}>
+          Register
+        </button>
       </form>
-      <p>
+      <p className={styles.text}>
         Already Registered?<Link to="/">Login Here</Link>
       </p>
     </div>
