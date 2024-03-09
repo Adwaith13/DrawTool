@@ -1,17 +1,35 @@
 const express = require("express");
 const DrawingModel = require("../models/Shape");
+const authenticateUser = require("../middlewares/authenticateUser");
 
 const router = express.Router();
 
-router.post("/save", async (req, res) => {
+router.post("/save", authenticateUser, async (req, res) => {
   try {
     const { shapes } = req.body;
-    const newDrawing = await DrawingModel.create({ shapes });
-    res.json({
-      success: true,
-      message: "Drawing data saved successfully",
-      drawing: newDrawing,
-    });
+    const existingDrawing = await DrawingModel.findOne({ user_id: req.user });
+
+    if (existingDrawing) {
+      existingDrawing.shapes = shapes;
+      await existingDrawing.save();
+
+      res.json({
+        success: true,
+        message: "Drawing data updated successfully",
+        drawing: existingDrawing,
+      });
+    } else {
+      const newDrawing = await DrawingModel.create({
+        user_id: req.user,
+        shapes,
+      });
+
+      res.json({
+        success: true,
+        message: "Drawing data saved successfully",
+        drawing: newDrawing,
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -21,9 +39,10 @@ router.post("/save", async (req, res) => {
   }
 });
 
-router.get("/getdrawing", async (req, res) => {
+router.get("/getdrawing", authenticateUser, async (req, res) => {
   try {
-    const drawing = await DrawingModel.findOne(); 
+    const user_id = req.user;
+    const drawing = await DrawingModel.findOne({ user_id: user_id });
 
     if (!drawing) {
       return res
