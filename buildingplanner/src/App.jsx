@@ -1,9 +1,19 @@
 import Canvas from "./components/Canvas";
+import Login from "./components/Login";
+import Register from "./components/Register";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <Canvas />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/canvas" element={<Canvas />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

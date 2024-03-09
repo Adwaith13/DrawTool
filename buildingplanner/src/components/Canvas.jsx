@@ -107,10 +107,12 @@ export default function Canvas() {
     }
   };
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const save = async () => {
       try {
-        const payload = await saveDrawing(shapes);
+        const payload = await saveDrawing(shapes,token);
         console.log(payload);
       } catch (error) {
         console.log(error);
@@ -119,10 +121,10 @@ export default function Canvas() {
     save();
   }, [shapes]);
 
-/*   useEffect(() => {
+    useEffect(() => {
     const fetchDrawing = async () => {
       try {
-        const shapesData = await getDrawing();
+        const shapesData = await getDrawing(token);
         setShapes(shapesData.shapes);
         console.log(shapesData)
       } catch (error) {
@@ -130,7 +132,7 @@ export default function Canvas() {
       }
     };
     fetchDrawing();
-  },[]); */
+  },[]);
 
   return (
     <div>
