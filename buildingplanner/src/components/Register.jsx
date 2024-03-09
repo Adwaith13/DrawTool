@@ -51,7 +51,7 @@ export default function Register() {
         <button type="submit">Register</button>
       </form>
       <p>
-        Already Registered?<Link to="/login">Login Here</Link>
+        Already Registered?<Link to="/">Login Here</Link>
       </p>
     </div>
   );

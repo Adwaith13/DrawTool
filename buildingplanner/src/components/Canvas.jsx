@@ -67,7 +67,7 @@ export default function Canvas() {
     setShapes(updatedShapes);
   };
 
-  const handleStageClick = (e) => {
+  const handleStageClick = () => {
     if (textCreationMode) {
       createShape("text", textPosition);
       setTextPosition({ x: 0, y: 0 });
@@ -89,12 +89,10 @@ export default function Canvas() {
   };
 
   useEffect(() => {
-    // Add event listener for stage click when in text creation mode
     const stage = document.getElementById("canvas-stage");
     stage.addEventListener("click", handleStageClick);
 
     return () => {
-      // Remove event listener when component unmounts
       stage.removeEventListener("click", handleStageClick);
     };
   }, [textCreationMode]);
