@@ -65,7 +65,6 @@ export default function Canvas() {
     }
     updatedShapes = [...shapes, newShape];
     setShapes(updatedShapes);
-    console.log("Drawing Data:", updatedShapes);
   };
 
   const handleStageClick = (e) => {
@@ -110,29 +109,37 @@ export default function Canvas() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const save = async () => {
-      try {
-        const payload = await saveDrawing(shapes,token);
-        console.log(payload);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    save();
-  }, [shapes]);
+    if (shapes.length > 0) {
+      const save = async () => {
+        try {
+          const payload = await saveDrawing(shapes, token);
+          console.log(payload);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      save();
+    }
+  }, [shapes, token]);
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchDrawing = async () => {
       try {
         const shapesData = await getDrawing(token);
-        setShapes(shapesData.shapes);
-        console.log(shapesData)
+        setShapes(shapesData.shapes || []);
+        console.log(shapesData.shapes);
       } catch (error) {
         console.log(error);
       }
     };
     fetchDrawing();
-  },[]);
+  }, [token]);
+
+  useEffect(() => {
+    const retrievedShapes = localStorage.getItem("shapes");
+    const initialShapes = retrievedShapes ? JSON.parse(retrievedShapes) : [];
+    setShapes(initialShapes);
+  }, []);
 
   return (
     <div>
@@ -160,7 +167,6 @@ export default function Canvas() {
                 const updatedShapes = shapes.slice();
                 updatedShapes[index] = newAttrs;
                 setShapes(updatedShapes);
-                console.log("Drawing Data:", updatedShapes);
               }}
             />
           ))}
